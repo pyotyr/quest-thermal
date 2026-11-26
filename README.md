@@ -13,7 +13,7 @@ Tested on a Meta Quest 3 with the **USB option** of the following FPV/UAV therma
 
 > FPV UAV Infrared Thermal Imager Lens HD 50FPS Frame Rate 256/384/640 High-resolution USB Interface Thermal Imaging
 
-[Camera listing on AliExpress](https://www.aliexpress.com/item/1005010411514121.html) — select the **USB** option. The camera identifies through the HIK F2-compatible USB protocol. The listing title advertises several resolutions/frame rates; the mode below is what was actually observed and tested.
+[Camera listing on AliExpress](https://www.aliexpress.com/item/1005010411514121.html) — select the **USB** option and the **256×192** resolution variant. The camera identifies through the HIK F2-compatible USB protocol. The listing title advertises several resolutions/frame rates; the mode below is what was actually observed and tested.
 
 | Property | Tested value |
 | --- | --- |
