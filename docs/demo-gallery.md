@@ -14,13 +14,19 @@ The thermal module sits above the Quest's front sensors on a homemade plate made
 
 ![Routers on a windowsill with thermal overlay](images/demo/routers-window.jpg)
 
-The routers stand out against the surrounding window and wall. The image combines white-hot/black-cold grayscale with adaptive red hot and blue cold highlights.
+The routers stand out against the surrounding window and wall. A floor vent is also visible in front of the window, showing electronics and a heating vent in the same view. The image combines white-hot/black-cold grayscale with adaptive red hot and blue cold highlights.
 
 ## Kitchen appliances
 
 ![Kitchen appliances and countertop in thermal passthrough](images/demo/kitchen-appliances.jpg)
 
 Compare warmer objects around the kitchen with the ordinary colour view still visible behind the overlay.
+
+## Floor vent beside the door
+
+![Thermal view of the floor vent at the left side of the doorway](images/demo/floor-vent-context.jpg)
+
+The floor vent is beside the door, on the left side of this view. The wider view shows its position relative to the doorway and surrounding floor, with the thermal overlay blended over passthrough.
 
 ## Normal passthrough in the mirror
 
@@ -51,12 +57,6 @@ Choose four well-spaced landmarks in the frozen thermal image. The numbered cyan
 ![Selecting the matching landmarks in ordinary Quest passthrough](images/demo/alignment-passthrough-points-cropped.jpg)
 
 The thermal image hides while you choose the corresponding points in passthrough. The saved fit can be adjusted for the camera's position; parallax means it will not perfectly match objects at every distance.
-
-## Floor vent beside the door
-
-![Thermal view of the floor vent at the left side of the doorway](images/demo/floor-vent-context.jpg)
-
-The floor vent is beside the door, on the left side of this view. The wider view shows its position relative to the doorway and surrounding floor, with the thermal overlay blended over passthrough.
 
 ## Reading the images
 

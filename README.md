@@ -11,16 +11,19 @@ The Quest's built-in cameras do not capture thermal images.
 
 ![Warm routers beside a cooler window, shown as a transparent thermal overlay in Quest 3 passthrough](docs/images/demo/routers-window.jpg)
 
-*Warm routers stand out in red while cooler parts of the window appear blue. This is an actual headset screenshot from Pyotyr's setup.*
+*Warm routers stand out in red while cooler parts of the window appear blue. A floor vent is visible in front of the window too. This is an actual headset screenshot from Pyotyr's setup.*
 
 ## See it in use
 
-| Explore heat around the house | Wear it and align the view |
+| Kitchen appliances | Floor vent beside the door |
 | --- | --- |
-| ![Thermal overlay on kitchen appliances](docs/images/demo/kitchen-appliances.jpg) | ![Pyotyr wearing the thermal-equipped Quest in a mirror](docs/images/demo/mirror-closeup.jpg) |
-| **Kitchen appliances:** compare warmer objects with their surroundings. | **Mirror view:** the thermal image blends over ordinary colour passthrough. |
-| ![Floor vent beside the door shown in thermal passthrough](docs/images/demo/floor-vent-context.jpg) | ![Selecting reference points in the thermal image](docs/images/demo/alignment-thermal-points-cropped.jpg) |
-| **Floor vent:** inspect the warm vent beside the door. | **Four-point alignment:** match visible landmarks to position the overlay. |
+| ![Thermal overlay on kitchen appliances](docs/images/demo/kitchen-appliances.jpg) | ![Floor vent beside the door shown in thermal passthrough](docs/images/demo/floor-vent-context.jpg) |
+| Compare warmer objects with their surroundings. | Inspect the warm vent in its doorway and floor context. |
+
+| Mirror view | Four-point alignment |
+| --- | --- |
+| ![Pyotyr wearing the thermal-equipped Quest in a mirror](docs/images/demo/mirror-closeup.jpg) | ![Selecting reference points in the thermal image](docs/images/demo/alignment-thermal-points-cropped.jpg) |
+| Blend the thermal image over ordinary colour passthrough. | Match visible landmarks to position the overlay. |
 
 [View the gallery, including the camera mount, normal passthrough and both alignment stages →](docs/demo-gallery.md)
 
