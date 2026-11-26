@@ -19,7 +19,7 @@ The Quest's built-in cameras do not capture thermal images.
 | --- | --- |
 | ![Thermal overlay on kitchen appliances](docs/images/demo/kitchen-appliances.jpg) | ![Pyotyr wearing the thermal-equipped Quest in a mirror](docs/images/demo/mirror-closeup.jpg) |
 | **Kitchen appliances:** compare warmer objects with their surroundings. | **Mirror view:** the thermal image blends over ordinary colour passthrough. |
-| ![Inspecting a vent and nearby surfaces with the thermal overlay](docs/images/demo/vents.jpg) | ![Selecting reference points in the thermal image](docs/images/demo/alignment-thermal-points.jpg) |
+| ![Inspecting a vent and nearby surfaces with the thermal overlay](docs/images/demo/vents.jpg) | ![Selecting reference points in the thermal image](docs/images/demo/alignment-thermal-points-cropped.jpg) |
 | **Vents and surfaces:** explore the scene's warmer and cooler regions. | **Four-point alignment:** match visible landmarks to position the overlay. |
 
 [View all eight screenshots, including normal passthrough and both alignment stages →](docs/demo-gallery.md)

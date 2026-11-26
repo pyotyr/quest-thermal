@@ -18,13 +18,13 @@ Compare warmer objects around the kitchen with the ordinary colour view still vi
 
 ## Normal passthrough in the mirror
 
-![Pyotyr wearing the headset, seen in ordinary passthrough during alignment](images/demo/mirror-passthrough.jpg)
+![Pyotyr wearing the headset, seen in ordinary passthrough during alignment](images/demo/mirror-passthrough-cropped.jpg)
 
 The thermal image is hidden during the passthrough stage of alignment, making it possible to select real-world reference points.
 
 ## Why four-point alignment matters
 
-![Misaligned thermal overlay with the thermal mirror displaced from the visible mirror](images/demo/mirror-overlay.jpg)
+![Misaligned thermal overlay with the thermal mirror displaced from the visible mirror](images/demo/mirror-overlay-cropped.jpg)
 
 Here the thermal mirror is visibly offset from the mirror in passthrough. This illustrates why the overlay needs four-point alignment: select four matching landmarks in the thermal and visible views to fit the image to the surroundings. This is a misalignment example, not a demonstration of a finished alignment. The fit remains approximate and depends on distance because the thermal and Quest cameras occupy different positions.
 
@@ -36,13 +36,13 @@ A closer mirror view shows the head-mounted setup in use, with thermal and visib
 
 ## Four-point alignment: thermal landmarks
 
-![Selecting corresponding points in the frozen thermal image](images/demo/alignment-thermal-points.jpg)
+![Selecting corresponding points in the frozen thermal image](images/demo/alignment-thermal-points-cropped.jpg)
 
 Choose four well-spaced landmarks in the frozen thermal image. The numbered cyan points show the selections in progress.
 
 ## Four-point alignment: passthrough landmarks
 
-![Selecting the matching landmarks in ordinary Quest passthrough](images/demo/alignment-passthrough-points.jpg)
+![Selecting the matching landmarks in ordinary Quest passthrough](images/demo/alignment-passthrough-points-cropped.jpg)
 
 The thermal image hides while you choose the corresponding points in passthrough. The saved fit can be adjusted for the camera's position; parallax means it will not perfectly match objects at every distance.
 
