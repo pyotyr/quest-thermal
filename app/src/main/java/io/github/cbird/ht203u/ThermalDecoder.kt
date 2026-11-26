@@ -2,26 +2,46 @@ package io.github.cbird.ht203u
 
 /** Decodes complete UVC images without truncating 16-bit sensor values. */
 object ThermalDecoder {
-    data class ReportedMaximum(val x: Int, val y: Int, val celsius: Float) {
+    data class ReportedTemperature(val x: Int, val y: Int, val celsius: Float) {
         // The tested camera OSD truncates to tenths, rather than rounding.
         fun label(): String = String.format(java.util.Locale.US,"%.1f\u00B0C",(celsius*10).toInt()/10f)
     }
     data class Image(val width: Int, val height: Int, val values: IntArray, val source: String,
-                     val maximum: ReportedMaximum? = null)
+                     val maximum: ReportedTemperature? = null,
+                     val minimum: ReportedTemperature? = null,
+                     val spot: ReportedTemperature? = null)
 
     /** Camera-reported statistic, not a conversion of the clean sensor pixels.
      * Verified against the same-frame camera OSD at room and hand temperatures.
      * This record layout is only established for the tested 256x392 USB mode.
      */
-    internal fun reportedMaximum(words: ShortArray, width: Int, height: Int): ReportedMaximum? {
+    internal fun reportedMaximum(words: ShortArray, width: Int, height: Int): ReportedTemperature? =
+        reportedPoint(words,width,height,2,3,4)
+
+    internal fun reportedMinimum(words: ShortArray, width: Int, height: Int): ReportedTemperature? =
+        reportedPoint(words,width,height,5,6,7)
+
+    internal fun reportedSpot(words: ShortArray, width: Int, height: Int): ReportedTemperature? =
+        reportedPoint(words,width,height,9,null,null)
+
+    /** Trailer words: max/T/X/Y, min/T/X/Y, average/T, centre/T after the magic.
+     * The centre field was distinguished from the average with a centred/edge
+     * hand capture; minimum coordinates track the clean plane's coldest region.
+     * These values share the camera's statistic encoding, not the raw ADC units.
+     */
+    private fun reportedPoint(words: ShortArray, width: Int, height: Int, temperatureIndex: Int,
+                              xIndex: Int?, yIndex: Int?): ReportedTemperature? {
         if (width != 256 || height != 392 || words.size < width*height) return null
         val offset=388*width
         fun u16(i: Int)=words[offset+i].toInt() and 65535
         if (u16(0) != 65535 || u16(1) != 61166) return null
-        val x=u16(3); val y=u16(4)
+        val encoded=u16(temperatureIndex)
+        if (encoded == 0 || encoded == 65535) return null
+        val x=xIndex?.let { u16(it) } ?: 500
+        val y=yIndex?.let { u16(it) } ?: 500
         if (x !in 0..1000 || y !in 0..1000) return null
-        return ReportedMaximum((x*width/1000).coerceAtMost(width-1),
-            (y*192/1000).coerceAtMost(191),u16(2)/64f-50f)
+        return ReportedTemperature((x*width/1000).coerceAtMost(width-1),
+            (y*192/1000).coerceAtMost(191),encoded/64f-50f)
     }
 
     fun decode(words: ShortArray, width: Int, height: Int, fourCC: String, hik: Boolean): Image {
@@ -46,12 +66,14 @@ object ThermalDecoder {
                         val raw = IntArray(width*192) { words[it].toInt() and 65535 }
                         val lo = raw.minOrNull()!!; val hi = raw.maxOrNull()!!
                         if (lo > 0 && hi <= 16383 && hi > lo) {
-                            return Image(width,192,raw,"Clean 16-bit thermal image",reportedMaximum(words,width,height))
+                            return Image(width,192,raw,"Clean 16-bit thermal image",reportedMaximum(words,width,height),
+                                reportedMinimum(words,width,height),reportedSpot(words,width,height))
                         }
                     }
                     return Image(width, 192, IntArray(width * 192) {
                         words[row * width + it].toInt() and 255
-                    }, "Camera-processed grayscale",reportedMaximum(words,width,height))
+                    }, "Camera-processed grayscale",reportedMaximum(words,width,height),
+                        reportedMinimum(words,width,height),reportedSpot(words,width,height))
                 }
             }
         }

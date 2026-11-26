@@ -4,6 +4,45 @@ import org.junit.Assert.*
 import org.junit.Test
 
 class ThermalDecoderTest {
+    private fun reportedFrame(): ShortArray = ShortArray(256*392).also { words ->
+        for(i in 0 until 256*192) words[i]=(5200+i%300).toShort()
+        for(i in 0 until 256*192) words[256*196+i]=(0x8000 or (i%256)).toShort()
+        // Statistic record from the controlled centre/edge hand check. The image
+        // itself is synthetic; no private camera capture is bundled in tests.
+        val footer=intArrayOf(65535,61166,5185,62,565,4212,215,952,4696,4962)
+        footer.forEachIndexed { i,value -> words[388*256+i]=value.toShort() }
+    }
+    @Test fun allThreeReadingsSurviveCleanPlaneDecodingWithTheirOwnCoordinates() {
+        val image=ThermalDecoder.decode(reportedFrame(),256,392,"YUY2",true)
+        assertEquals("Clean 16-bit thermal image",image.source)
+        assertEquals("31.0\u00B0C",image.maximum!!.label())
+        assertEquals("15.8\u00B0C",image.minimum!!.label())
+        assertEquals("27.5\u00B0C",image.spot!!.label())
+        assertEquals(55,image.minimum.x); assertEquals(182,image.minimum.y)
+        assertEquals(128,image.spot.x); assertEquals(96,image.spot.y)
+        assertNotEquals(image.maximum.celsius,image.spot.celsius)
+        // Word 8 is the whole-frame average, not the spot.
+        assertNotEquals(4696/64f-50f,image.spot.celsius)
+    }
+    @Test fun centreUsesItsReportedValueRatherThanTheHottestPixelOrAverage() {
+        val words=reportedFrame()
+        val before=ThermalDecoder.reportedSpot(words,256,392)!!
+        words[388*256+9]=4619.toShort()
+        assertEquals("22.1\u00B0C",ThermalDecoder.reportedSpot(words,256,392)!!.label())
+        assertEquals("27.5\u00B0C",before.label())
+        assertEquals("31.0\u00B0C",ThermalDecoder.reportedMaximum(words,256,392)!!.label())
+    }
+    @Test fun invalidColdMetadataDoesNotInventAReadingOrSuppressOtherMarkers() {
+        val words=reportedFrame()
+        words[388*256+6]=1001.toShort()
+        assertNull(ThermalDecoder.reportedMinimum(words,256,392))
+        assertNotNull(ThermalDecoder.reportedMaximum(words,256,392))
+        assertNotNull(ThermalDecoder.reportedSpot(words,256,392))
+        words[388*256+9]=0
+        assertNull(ThermalDecoder.reportedSpot(words,256,392))
+        assertNull(ThermalDecoder.reportedMinimum(words,256,192))
+        assertNull(ThermalDecoder.reportedSpot(words,256,192))
+    }
     @Test fun cameraMaximumUsesTrailerInsteadOfRawSensorCounts() {
         val words=ShortArray(256*392)
         val o=388*256

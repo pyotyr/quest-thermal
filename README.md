@@ -76,7 +76,7 @@ Pyotyr used [this USB-A to USB-C adapter](https://www.amazon.ca/dp/B0B9N3QSL3) (
 - Offers white-hot/black-cold grayscale with adaptive red hot and blue cold highlights, plus other colour maps.
 - Controls grayscale, red, blue and overall transparency independently.
 - Shows optional min/max/centre markers and relative mean heat; hides controls for a clean view.
-- Shows the camera-reported maximum as a numeric-only Celsius label beside the red crosshair on the tested 256×392 USB stream.
+- Shows numeric-only Celsius labels for the camera-reported hot (red), cold (blue), and centre spot (white) readings on the tested 256×392 USB stream.
 - Uses the clean 16-bit plane on the tested camera, avoiding the camera preview's burned-in Max label and crosshair.
 - Fades stale images and shows an animated **Camera calibrating or paused…** indicator when frames stop changing.
 - Appears in the tested camera's USB app chooser; choose **Always** if offered by Horizon OS.
@@ -85,11 +85,11 @@ Pyotyr used [this USB-A to USB-C adapter](https://www.amazon.ca/dp/B0B9N3QSL3) (
 
 1. Enable developer mode on the Quest and connect it to a computer with a USB data cable.
 2. Approve USB debugging in the headset.
-3. Download `Quest-Thermal-0.8.2.apk` from [Releases](https://github.com/pyotyr/quest-thermal/releases).
+3. Download `Quest-Thermal-0.8.3.apk` from [Releases](https://github.com/pyotyr/quest-thermal/releases).
 4. Sideload the APK using your usual installer or Android platform-tools:
 
    ```sh
-   adb install -r Quest-Thermal-0.8.2.apk
+   adb install -r Quest-Thermal-0.8.3.apk
    ```
 
 5. Open **Quest Thermal** from the headset's Unknown Sources apps. Allow the camera/USB permissions requested by Horizon OS.
@@ -141,7 +141,7 @@ The preset includes Pyotyr's saved alignment matrix. Re-align it for your own ca
 
 ## Measurement and calibration limits
 
-The clean preview and colour map show relative heat. On the tested 256×392 stream, the red maximum marker uses the camera's reported temperature and location, decoded separately from the image. Its numeric Celsius label was checked against the camera's own overlay in room-temperature and hand captures; this is a protocol check, not an independent calibration of measurement accuracy. Minimum, centre and per-pixel Celsius conversions remain unverified, so they do not show invented numeric temperatures. The camera preview's burned-in Max text is intentionally excluded.
+The clean preview and colour map show relative heat. On the tested 256×392 stream, the red maximum marker uses the camera's reported temperature and location, decoded separately from the image. Its numeric Celsius label was checked against the camera's own overlay in room-temperature and hand captures; this is a protocol check, not an independent calibration of measurement accuracy. Version 0.8.3 also reads minimum and centre statistics from the same camera record. The minimum coordinates were checked against the cold region, and the centre field was distinguished from the image average using a controlled centre/edge hand test. Those fields use the shared camera-statistic encoding; their numeric values have not been independently checked against a calibrated reference or the vendor's numeric minimum/centre display. Per-pixel Celsius conversion remains unimplemented. The camera preview's burned-in Max text is intentionally excluded.
 
 The pause indicator infers missing or repeated image frames; it does not positively identify a shutter/FFC event and can also indicate a USB or stream interruption.
 
@@ -157,7 +157,7 @@ Use JDK 17 or 21, Android SDK platform 34, and build-tools 35.0.0. Point `ANDROI
 
 On Windows, use `gradlew.bat`. Output: `app/build/outputs/apk/debug/app-debug.apk`.
 
-Version 0.8.2 passed 32 local tests and Android lint with zero errors. Coverage includes stacked sensor/annotated-preview separation, 16-bit gradients, reported-maximum metadata and numeric formatting, marker rotation/alignment/toggles, pause/recovery and repeated frames, four-point fitting, drag/resize interactions, preset parity, and preservation of saved settings on upgrade. The public test frame is synthetic. Version 0.8.2 was installed and used on Pyotyr's physical Quest/camera setup for the gallery captures. Hardware combinations beyond the tested setup remain unverified.
+Version 0.8.3 passed 35 local tests and Android lint with zero errors. Coverage includes stacked sensor/annotated-preview separation, 16-bit gradients, hot/cold/centre metadata, invalid-record handling and numeric formatting, marker rotation/alignment/toggles, pause/recovery and repeated frames, four-point fitting, drag/resize interactions, preset parity, and preservation of saved settings on upgrade. The public test frame is synthetic. The v0.8.3 decoder also replayed 1,050 actual camera frames with all three statistics present and correctly ordered. Version 0.8.2 was installed and used on Pyotyr's physical Quest/camera setup for the gallery captures. Hardware combinations beyond the tested setup remain unverified.
 
 ## Credits and licence
 

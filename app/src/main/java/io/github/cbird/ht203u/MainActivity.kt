@@ -552,11 +552,14 @@ class MainActivity : Activity() {
         applyColorMap(normalized.size)
         val minI=image.values.indices.minBy { image.values[it] }
         val maxI=image.values.indices.maxBy { image.values[it] }
-        drawMarker(minI%w,minI/w,w,h,0xFF40A0FF.toInt())
+        val minimum=image.minimum
+        drawMarker(minimum?.x ?: (minI%w),minimum?.y ?: (minI/w),w,h,0xFF40A0FF.toInt(),
+            minimum?.label())
         val maximum=image.maximum
         drawMarker(maximum?.x ?: (maxI%w),maximum?.y ?: (maxI/w),w,h,0xFFFF4040.toInt(),
             maximum?.label())
-        drawMarker(w/2,h/2,w,h,0xFFFFFFFF.toInt())
+        val spot=image.spot
+        drawMarker(spot?.x ?: (w/2),spot?.y ?: (h/2),w,h,0xFFFFFFFF.toInt(),spot?.label())
         val settings=ViewerState.settings
         val labels=listOfNotNull(
             if(settings.showMean) "Mean relative heat: %.0f%%".format(normalized.average()/255*100) else null,

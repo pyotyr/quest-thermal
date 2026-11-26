@@ -12,8 +12,8 @@ android {
         applicationId = "io.pyotyr.questthermal"
         minSdk = 34
         targetSdk = 34
-        versionCode = 10
-        versionName = "0.8.2"
+        versionCode = 11
+        versionName = "0.8.3"
     }
 
     buildTypes {
