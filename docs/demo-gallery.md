@@ -6,7 +6,7 @@ Real headset captures from Pyotyr's Meta Quest 3 and 256×192 USB thermal module
 
 ## How the camera is mounted
 
-![Front view of the USB thermal camera attached above the Quest 3's front sensors](images/mount-front.jpg)
+![USB thermal camera, homemade mount and cable attached to the Quest 3](images/mount-headset-cropped.jpg)
 
 The thermal module sits above the Quest's front sensors on a homemade plate made from popsicle sticks, hot glue and double-sided/gel tape. Placing its lens close to the Quest's passthrough cameras reduces parallax. The USB-A camera connects to the headset through a USB-C OTG adapter. See [the mounting notes and side view](../README.md#example-mounting).
 

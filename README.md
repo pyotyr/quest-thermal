@@ -101,7 +101,7 @@ Pyotyr mounted the USB thermal module above the Quest 3's front sensors on a sma
 
 This placement keeps the thermal lens as close as practical to the Quest's passthrough cameras to reduce parallax between the two views. Pyotyr reports that the mounted module is barely visible in the passthrough field of view. The small remaining separation still causes alignment differences at different distances.
 
-![Front view of Pyotyr's thermal module mounted above the Quest 3 sensors](docs/images/mount-front.jpg)
+![Pyotyr's thermal camera and homemade mount attached to the Quest 3](docs/images/mount-headset-cropped.jpg)
 
 ![Side view showing the module mount and USB cable routing](docs/images/mount-side.jpg)
 
