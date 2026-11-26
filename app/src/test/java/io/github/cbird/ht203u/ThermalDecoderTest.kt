@@ -1,0 +1,45 @@
+package io.github.cbird.ht203u
+
+import org.junit.Assert.*
+import org.junit.Test
+
+class ThermalDecoderTest {
+    @Test fun sixteenBitGradientRemainsMonotonicAcrossByteBoundaries() {
+        val input=intArrayOf(254,255,256,257,510,511,512)
+        val image=ThermalDecoder.decode(input.map { it.toShort() }.toShortArray(),7,1,"Y16 ",true)
+        assertArrayEquals(input,image.values)
+        val normalized=ThermalDecoder.normalize(image.values)
+        assertTrue(normalized.toList().zipWithNext().all { (a,b) -> a<=b })
+        assertEquals(0,normalized.first()); assertEquals(255,normalized.last())
+    }
+    @Test fun neutralYuy2UsesItsLuminanceRatherThanTreatingChromaAsTemperature() {
+        val input=intArrayOf(0,64,128,255)
+        val image=ThermalDecoder.decode(input.map { (0x8000 or it).toShort() }.toShortArray(),4,1,"YUY2",true)
+        assertArrayEquals(input,image.values)
+    }
+    @Test fun hikRawCountsInYuy2DescriptorAreNotReducedToEightBits() {
+        val input=intArrayOf(10000,10255,10256,10512)
+        assertArrayEquals(input,ThermalDecoder.decode(input.map { it.toShort() }.toShortArray(),4,1,"YUY2",true).values)
+    }
+    @Test fun stackedHikStreamUsesProcessedPlaneAndSkipsTelemetryRows() {
+        val words=ShortArray(4*392)
+        for(i in 0 until 4*192) words[4*196+i]=(0x8000 or (i%256)).toShort()
+        val image=ThermalDecoder.decode(words,4,392,"YUY2",true)
+        assertEquals(192,image.height)
+        assertEquals("Camera-processed grayscale",image.source)
+        assertEquals(0,image.values[0]); assertEquals(255,image.values[255])
+    }
+    @Test(expected=IllegalArgumentException::class) fun truncatedFramesAreRejected() {
+        ThermalDecoder.decode(ShortArray(10),256,192,"Y16 ",true)
+    }
+    @Test fun annotatedPreviewCannotLeakIntoCleanSensorPlane() {
+        val bytes=javaClass.getResourceAsStream("/hik-hand-frame.bin")!!.use { it.readBytes() }
+        val words=ShortArray(bytes.size/2)
+        java.nio.ByteBuffer.wrap(bytes).order(java.nio.ByteOrder.LITTLE_ENDIAN).asShortBuffer().get(words)
+        val image=ThermalDecoder.decode(words,256,392,"YUY2",true)
+        assertEquals("Clean 16-bit thermal image",image.source)
+        assertArrayEquals(IntArray(256*192) { words[it].toInt() and 65535 },image.values)
+        assertTrue(image.values.maxOrNull()!! > 255)
+        assertNotEquals(words[196*256].toInt() and 255,image.values.first())
+    }
+}

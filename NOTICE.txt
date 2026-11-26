@@ -1,0 +1,11 @@
+Quest Thermal
+Copyright 2026 Pyotyr (Quest integration and modifications).
+
+Based on HT203U-Thermal by cfbird and its contributors:
+https://github.com/cfbird/HT203U-Thermal
+Base commit: 39ba7216e4e833e61e73a67146730a74a052fe20
+
+The project source is distributed under GNU GPL version 3; see LICENSE.
+Third-party dependencies, including Meta Spatial SDK, retain their own licences.
+
+Mounting photographs by Pyotyr, published with his permission.

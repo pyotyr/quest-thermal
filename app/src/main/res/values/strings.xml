@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Quest Thermal</string>
+    <string name="waiting">Connect your HikCamera by USB-C. Tap this line to reconnect.</string>
+    <string name="calibrate">Probe XU</string>
+    <string name="range_normal">Dump meta</string>
+    <string name="range_high">Dump meta</string>
+    <string name="unit_c">°C</string>
+    <string name="unit_f">°F</string>
+    <string name="log">Log</string>
+    <string name="rotate">Rotate</string>
+    <string name="photo">Photo</string>
+    <string name="rec">Rec</string>
+    <string name="rec_stop">Stop</string>
+</resources>
