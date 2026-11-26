@@ -79,7 +79,7 @@ Alignment is approximate and is specific to the camera's mounting, orientation a
 
 ## Example mounting
 
-Pyotyr mounted the USB thermal module above the Quest 3's front sensors on a small homemade plate, with the USB cable routed to the side port. These photographs show the working prototype and its adapter/cabling; the plate is not included with the app. Keep the headset's cameras and sensors unobstructed, and support the cable so it does not pull on the USB-C port.
+Pyotyr mounted the USB thermal module above the Quest 3's front sensors on a small homemade plate made from **popsicle sticks, hot glue, and double-sided/gel tape**, all available at a dollar store, with the USB cable routed to the side port. These photographs show the working prototype and its adapter/cabling; the plate is not included with the app. Keep the headset's cameras and sensors unobstructed, and support the cable so it does not pull on the USB-C port.
 
 ![Front view of Pyotyr's thermal module mounted above the Quest 3 sensors](docs/images/mount-front.jpg)
 
