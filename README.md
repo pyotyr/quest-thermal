@@ -85,17 +85,21 @@ Pyotyr used [this USB-A to USB-C adapter](https://www.amazon.ca/dp/B0B9N3QSL3) (
 
 1. Enable developer mode on the Quest and connect it to a computer with a USB data cable.
 2. Approve USB debugging in the headset.
-3. Download `Quest-Thermal-0.8.3.apk` from [Releases](https://github.com/pyotyr/quest-thermal/releases).
+3. Download `Quest-Thermal-0.8.4.apk` from [Releases](https://github.com/pyotyr/quest-thermal/releases).
 4. Sideload the APK using your usual installer or Android platform-tools:
 
    ```sh
-   adb install -r Quest-Thermal-0.8.3.apk
+   adb install -r Quest-Thermal-0.8.4.apk
    ```
 
 5. Open **Quest Thermal** from the headset's Unknown Sources apps. Allow the camera/USB permissions requested by Horizon OS.
 6. Disconnect the computer and connect the compatible thermal module through its USB-C OTG adapter to the headset's USB-C port. In the USB app chooser, select Quest Thermal.
 
 The application ID is `io.pyotyr.questthermal`. The release APK uses the existing development signing key; updates preserve settings for compatible earlier Pyotyr builds. APKs built independently or by CI may use a different key and cannot update that installation directly.
+
+## Screenshots and recording
+
+Use the Quest's built-in capture and recording controls to save the mixed-reality view, including passthrough and the thermal overlay. The app does not provide an internal video recorder. Its **Photo** control remains available for a thermal-image capture.
 
 ## Controls and alignment
 
@@ -157,7 +161,7 @@ Use JDK 17 or 21, Android SDK platform 34, and build-tools 35.0.0. Point `ANDROI
 
 On Windows, use `gradlew.bat`. Output: `app/build/outputs/apk/debug/app-debug.apk`.
 
-Version 0.8.3 passed 35 local tests and Android lint with zero errors. Coverage includes stacked sensor/annotated-preview separation, 16-bit gradients, hot/cold/centre metadata, invalid-record handling and numeric formatting, marker rotation/alignment/toggles, pause/recovery and repeated frames, four-point fitting, drag/resize interactions, preset parity, and preservation of saved settings on upgrade. The public test frame is synthetic. The v0.8.3 decoder also replayed 1,050 actual camera frames with all three statistics present and correctly ordered. Version 0.8.2 was installed and used on Pyotyr's physical Quest/camera setup for the gallery captures. Hardware combinations beyond the tested setup remain unverified.
+Version 0.8.4 passed 35 local tests and Android lint with zero errors. Coverage includes stacked sensor/annotated-preview separation, 16-bit gradients, hot/cold/centre metadata, invalid-record handling and numeric formatting, marker rotation/alignment/toggles, pause/recovery and repeated frames, four-point fitting, drag/resize interactions, preset parity, and preservation of saved settings on upgrade. The public test frame is synthetic. The v0.8.3 decoder also replayed 1,050 actual camera frames with all three statistics present and correctly ordered. Version 0.8.2 was installed and used on Pyotyr's physical Quest/camera setup for the gallery captures. Hardware combinations beyond the tested setup remain unverified.
 
 ## Credits and licence
 

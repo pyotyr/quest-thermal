@@ -75,10 +75,6 @@ class MainActivity : Activity() {
     // capture
     @Volatile private var photoRequested = false
     @Volatile private var snapRaw: ShortArray? = null
-    @Volatile private var recorder: Recorder? = null
-    private var recFile: java.io.File? = null
-    private var recBitmap: Bitmap? = null
-    private lateinit var btnRec: Button
     @Volatile private var framesReceived = 0L
     @Volatile private var lastFrameBytes = 0
     private var receiversRegistered = false
@@ -137,8 +133,6 @@ class MainActivity : Activity() {
             photoRequested = true
             status("capturingâ€¦")
         }
-        btnRec = findViewById(R.id.btnRec)
-        btnRec.setOnClickListener { toggleRecording() }
         btnUnit.setOnClickListener {
             fahrenheit = !fahrenheit
             btnUnit.setText(if (fahrenheit) R.string.unit_f else R.string.unit_c)
@@ -189,8 +183,6 @@ class MainActivity : Activity() {
     override fun onStop() {
         super.onStop()
         mainHandler.removeCallbacks(watchdog)
-        recorder?.let { r -> recorder = null; Thread { r.stop() }.start() }
-        runOnUiThread { btnRec.setText(R.string.rec) }
         stopAll()
         if (receiversRegistered) {
             unregisterReceiver(usbReceiver)
@@ -704,19 +696,6 @@ class MainActivity : Activity() {
             src = rotPixels
         }
 
-        // recording: feed the rotated frame to the encoder (worker thread)
-        recorder?.let { rec ->
-            if (rec.running) {
-                var rb = recBitmap
-                if (rb == null || rb.width != dw || rb.height != dh) {
-                    rb = Bitmap.createBitmap(dw, dh, Bitmap.Config.ARGB_8888)
-                    recBitmap = rb
-                }
-                rb.setPixels(src, 0, dw, 0, 0, dw, dh)
-                rec.encodeFrame(rb)
-            }
-        }
-
         // photo: save a copy of exactly what is displayed + the raw counts
         if (photoRequested) {
             photoRequested = false
@@ -799,44 +778,6 @@ class MainActivity : Activity() {
     private fun timestampName(): String =
         "HT203U_" + java.text.SimpleDateFormat("yyyyMMdd_HHmmss", java.util.Locale.US)
             .format(java.util.Date())
-
-    private fun toggleRecording() {
-        val rec = recorder
-        if (rec == null) {
-            // record at 4x the current rotated display size
-            val dw = if (rotation % 2 == 1) Xtherm.HEIGHT else Xtherm.WIDTH
-            val dh = if (rotation % 2 == 1) Xtherm.WIDTH else Xtherm.HEIGHT
-            try {
-                val f = java.io.File(cacheDir, timestampName() + ".mp4")
-                recFile = f
-                recorder = Recorder(dw * 4, dh * 4, 25, f, ::dlog)
-                runOnUiThread { btnRec.setText(R.string.rec_stop) }
-                status("recordingâ€¦")
-            } catch (t: Throwable) {
-                dlog("recorder start failed: $t")
-                status("recording failed to start: ${t.message}")
-            }
-        } else {
-            recorder = null
-            runOnUiThread { btnRec.setText(R.string.rec) }
-            val src = recFile ?: return
-            Thread {
-                val ok = rec.stop()
-                if (ok && src.length() > 0) {
-                    val uri = insertMedia(
-                        android.provider.MediaStore.Video.Media.EXTERNAL_CONTENT_URI,
-                        src.name, "video/mp4", "Movies/HT203U")
-                    if (uri != null) {
-                        contentResolver.openOutputStream(uri)?.use { out ->
-                            src.inputStream().use { it.copyTo(out) }
-                        }
-                        status("video saved to Movies/HT203U/${src.name}")
-                    } else status("video save failed (MediaStore)")
-                } else status("recording produced no data")
-                src.delete()
-            }.start()
-        }
-    }
 
     private fun insertMedia(
         collection: android.net.Uri, name: String, mime: String, relPath: String

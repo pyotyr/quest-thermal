@@ -14,7 +14,7 @@ import java.util.Locale
 /** The image canvas and its controls are different spatial panels. */
 fun Activity.installViewerControls(image: ImageView, status: TextView, readings: TextView) {
     ViewerPrefs.load(this)
-    val buttons=mapOf("photo" to R.id.btnPhoto,"rec" to R.id.btnRec,"log" to R.id.btnLog,
+    val buttons=mapOf("photo" to R.id.btnPhoto,"log" to R.id.btnLog,
         "probe" to R.id.btnCalibrate,"dump" to R.id.btnRange,"rotate" to R.id.btnRotate,"unit" to R.id.btnUnit)
         .mapValues { findViewById<Button>(it.value) }
     listOf(image,status,readings).forEach { (it.parent as? ViewGroup)?.removeView(it) }
@@ -131,7 +131,6 @@ class ControlsActivity:Activity() {
         val advanced=row()
         button(advanced,"Rotate camera") { ViewerState.commands.add("rotate") }
         button(advanced,"Photo") { ViewerState.commands.add("photo") }
-        button(advanced,"Record / stop") { ViewerState.commands.add("rec") }
         check(advanced,"Diagnostics",s.diagnostics) { v,on -> v.copy(diagnostics=on) }
         button(advanced,"Log") { ViewerState.commands.add("log") }
         return root

@@ -10,6 +10,4 @@
     <string name="log">Log</string>
     <string name="rotate">Rotate</string>
     <string name="photo">Photo</string>
-    <string name="rec">Rec</string>
-    <string name="rec_stop">Stop</string>
 </resources>
