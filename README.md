@@ -7,6 +7,8 @@ The Quest's built-in cameras do not capture thermal images.
 
 [Download the APK](https://github.com/pyotyr/quest-thermal/releases/latest) · [Source and licence](LICENSE)
 
+**Camera module: about US$183** (C$260.32; November 2026). [Pricing details](#approximate-camera-cost-november-2026).
+
 ## Camera compatibility
 
 Tested on a Meta Quest 3 with the **USB option** of the following FPV/UAV thermal-camera module listing, supplied by Pyotyr:
@@ -24,6 +26,12 @@ Tested on a Meta Quest 3 with the **USB option** of the following FPV/UAV therma
 | Tested product variant | USB option; board/module shown below |
 
 Compatibility depends on the camera's USB protocol and frame layout. Other modules, resolutions, connector variants and HIKMICRO retail models need testing. FLIR, Seek, InfiRay and generic webcams are not supported configurations for this release. This is an independent project, unaffiliated with HIKMICRO or Meta.
+
+## Approximate camera cost (November 2026)
+
+The tested **256x192 USB camera module** was listed at **C$260.32**, as reported by Pyotyr on **26 November 2026** - approximately **US$183** for the camera module.
+
+The conversion uses the [Bank of Canada daily exchange rate for 25 November 2026](https://www.bankofcanada.ca/rates/exchange/daily-exchange-rates-lookup/?rangeType=dates&dF=2026-11-25&dT=2026-11-25&se=FXUSDCAD): **US$1 = C$1.4219** (C$260.32 / 1.4219 = US$183.08). This is a rough cost reference, not a guaranteed USD checkout price. Shipping, tax and coupon inclusion were not confirmed; those and payment-provider exchange rates can change the final total. The adapter, mount and Quest headset are separate.
 
 ## Tested USB connection
 
