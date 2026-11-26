@@ -48,7 +48,7 @@ The thermal image hides while you choose the corresponding points in passthrough
 
 ## Vents and nearby surfaces
 
-![Looking toward a vent and adjacent surfaces with a curved thermal panel](images/demo/vents.jpg)
+![Looking toward a vent and adjacent surfaces with a curved thermal panel](images/demo/vents-cropped.jpg)
 
 Explore temperature contrast while the curved panel follows your view.
 
