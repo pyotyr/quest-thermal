@@ -22,6 +22,13 @@ class ThermalImageView(context: Context, attrs: AttributeSet? = null) : ImageVie
     private var moved = false
     private var message = ""
     private var messageUntil = 0L
+    private var markers = emptyList<ThermalMarker>()
+
+    fun setMarkers(value: List<ThermalMarker>) { markers=value.toList(); invalidate() }
+
+    internal fun projectedMarkers(): List<Pair<ThermalMarker, Pair<Float,Float>>> = markers
+        .filter { it.visible(ViewerState.settings) }
+        .map { it to AlignmentMath.map(transform(),it.x,it.y) }
 
     fun beginCalibration() {
         if (ViewerState.cameraFeed.isPaused(android.os.SystemClock.elapsedRealtime())) {
@@ -79,6 +86,7 @@ class ThermalImageView(context: Context, attrs: AttributeSet? = null) : ImageVie
             canvas.drawBitmap(bitmap, matrix, ink)
             ink.alpha = 255
         }
+        if (stage == 0 && !paused) drawMarkers(canvas)
         ink.color = Color.CYAN; ink.strokeWidth = 3f
         if (ViewerState.adjusting && stage == 0) {
             val corners = unitCorners.map { AlignmentMath.map(transform(), it.first, it.second) }
@@ -126,6 +134,33 @@ class ThermalImageView(context: Context, attrs: AttributeSet? = null) : ImageVie
         ink.color = 0xCC101820.toInt(); canvas.drawRect(0f,0f,width.toFloat(),58f,ink)
         ink.color = Color.WHITE; ink.textSize = 24f
         canvas.drawText(text,12f,37f,ink)
+    }
+
+    private fun drawMarkers(canvas: Canvas) {
+        for ((marker,point) in projectedMarkers()) {
+            val x=point.first*width; val y=point.second*height
+            if (!x.isFinite() || !y.isFinite() || x !in 0f..width.toFloat() || y !in 0f..height.toFloat()) continue
+            val color=when(marker.kind) { "Min" -> 0xFF40A0FF.toInt(); "Max" -> 0xFFFF4040.toInt(); else -> Color.WHITE }
+            // Draw at UI resolution so crosshairs remain visible after resizing,
+            // histogram colouring, opacity adjustments and projective alignment.
+            ink.style=Paint.Style.STROKE; ink.alpha=255
+            for ((stroke,c) in listOf(6f to Color.BLACK,2.5f to color)) {
+                ink.strokeWidth=stroke; ink.color=c
+                canvas.drawCircle(x,y,5f,ink)
+                canvas.drawLine(x-14,y,x-7,y,ink); canvas.drawLine(x+7,y,x+14,y,ink)
+                canvas.drawLine(x,y-14,x,y-7,ink); canvas.drawLine(x,y+7,x,y+14,ink)
+            }
+            if (ViewerState.settings.showReadings && marker.reading != null) {
+                val text=marker.reading
+                ink.textSize=21f; ink.style=Paint.Style.FILL
+                val labelWidth=ink.measureText(text)+12f
+                val left=(x+18f).coerceIn(0f,(width-labelWidth).coerceAtLeast(0f))
+                val top=(y-33f).coerceIn(0f,(height-30f).coerceAtLeast(0f))
+                ink.color=0xDD101820.toInt(); canvas.drawRoundRect(left,top,left+labelWidth,top+30f,5f,5f,ink)
+                ink.color=color; canvas.drawText(text,left+6f,top+23f,ink)
+            }
+        }
+        ink.style=Paint.Style.FILL; ink.alpha=255
     }
 
     override fun onTouchEvent(event: MotionEvent): Boolean {

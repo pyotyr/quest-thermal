@@ -48,6 +48,18 @@ class ControlsUiTest {
             view.onTouchEvent(event); event.recycle()
         }
     }
+    @Test fun markersFollowAlignmentAndToggleWithoutWaitingForAnotherImage() {
+        val view=view()
+        ViewerState.settings=ViewerSettings(warp=listOf(.5f,0f,.2f,0f,.4f,.1f,0f,0f,1f),showMin=true,showMax=true)
+        view.setMarkers(listOf(ThermalMarker("Min",.2f,.3f),ThermalMarker("Max",.8f,.7f)))
+        val projected=view.projectedMarkers()
+        assertEquals(.3f,projected[0].second.first,.00001f)
+        assertEquals(.22f,projected[0].second.second,.00001f)
+        assertEquals(.6f,projected[1].second.first,.00001f)
+        assertEquals(.38f,projected[1].second.second,.00001f)
+        ViewerState.settings=ViewerState.settings.copy(showMin=false)
+        assertEquals(listOf("Max"),view.projectedMarkers().map { it.first.kind })
+    }
     @Test fun alignmentWaitsForFreshFramesAfterCameraPause() {
         val view=view()
         val now=android.os.SystemClock.elapsedRealtime()

@@ -52,6 +52,7 @@ class MainActivity : Activity() {
 
     private var bitmap: Bitmap = Bitmap.createBitmap(Xtherm.WIDTH, Xtherm.HEIGHT, Bitmap.Config.ARGB_8888)
     private var pixels = IntArray(Xtherm.PIXELS)
+    private val pendingMarkers = mutableListOf<ThermalMarker>()
     private val palette = Xtherm.ironPalette()
     private var frameU16 = ShortArray(256 * 520)
 
@@ -386,6 +387,7 @@ class MainActivity : Activity() {
     }
 
     private fun ensurePixels(n: Int) {
+        pendingMarkers.clear()
         if (pixels.size < n) pixels = IntArray(n)
     }
 
@@ -551,7 +553,9 @@ class MainActivity : Activity() {
         val minI=image.values.indices.minBy { image.values[it] }
         val maxI=image.values.indices.maxBy { image.values[it] }
         drawMarker(minI%w,minI/w,w,h,0xFF40A0FF.toInt())
-        drawMarker(maxI%w,maxI/w,w,h,0xFFFF4040.toInt())
+        val maximum=image.maximum
+        drawMarker(maximum?.x ?: (maxI%w),maximum?.y ?: (maxI/w),w,h,0xFFFF4040.toInt(),
+            maximum?.label())
         drawMarker(w/2,h/2,w,h,0xFFFFFFFF.toInt())
         val settings=ViewerState.settings
         val labels=listOfNotNull(
@@ -720,12 +724,14 @@ class MainActivity : Activity() {
         }
 
         val displayPixels = src.copyOf(dw * dh)
+        val displayMarkers = pendingMarkers.map { it.rotated(rot) }
         runOnUiThread {
             if (bitmap.width != dw || bitmap.height != dh) {
                 bitmap = Bitmap.createBitmap(dw, dh, Bitmap.Config.ARGB_8888)
             }
             bitmap.setPixels(displayPixels, 0, dw, 0, 0, dw, dh)
             thermalView.setImageBitmap(bitmap)
+            (thermalView as? ThermalImageView)?.setMarkers(displayMarkers)
             thermalView.invalidate()
             tempText.text = temps
             statusText.text = statusMsg
@@ -768,7 +774,9 @@ class MainActivity : Activity() {
         ).joinToString("   ")
     }
 
-    private fun drawMarker(x: Int, y: Int, w: Int, h: Int, color: Int) {
+    private fun drawMarker(x: Int, y: Int, w: Int, h: Int, color: Int, reading: String? = null) {
+        val kind = when(color) { 0xFF40A0FF.toInt() -> "Min"; 0xFFFF4040.toInt() -> "Max"; else -> "Spot" }
+        pendingMarkers.add(ThermalMarker(kind,(x+.5f)/w,(y+.5f)/h,reading))
         val settings = ViewerState.settings
         if (color == 0xFF40A0FF.toInt() && !settings.showMin) return
         if (color == 0xFFFF4040.toInt() && !settings.showMax) return

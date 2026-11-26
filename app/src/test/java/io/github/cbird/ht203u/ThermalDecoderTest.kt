@@ -4,6 +4,28 @@ import org.junit.Assert.*
 import org.junit.Test
 
 class ThermalDecoderTest {
+    @Test fun cameraMaximumUsesTrailerInsteadOfRawSensorCounts() {
+        val words=ShortArray(256*392)
+        val o=388*256
+        for ((i,value) in intArrayOf(65535,61166,5468,670,209).withIndex()) words[o+i]=value.toShort()
+        val maximum=ThermalDecoder.reportedMaximum(words,256,392)!!
+        assertEquals(35.4375f,maximum.celsius,0.0001f)
+        assertEquals(171,maximum.x); assertEquals(40,maximum.y)
+        words[o+2]=4571.toShort(); words[o+3]=1000.toShort(); words[o+4]=994.toShort()
+        val room=ThermalDecoder.reportedMaximum(words,256,392)!!
+        assertEquals(21.421875f,room.celsius,0.0001f)
+        assertEquals(255,room.x); assertEquals(190,room.y)
+        words[o+2]=5233.toShort()
+        assertEquals("31.7\u00B0C",ThermalDecoder.reportedMaximum(words,256,392)!!.label())
+    }
+    @Test fun unrecognizedTemperatureMetadataIsNotShownAsCelsius() {
+        val words=ShortArray(256*392)
+        assertNull(ThermalDecoder.reportedMaximum(words,256,392))
+        words[388*256]=65535.toShort(); words[388*256+1]=61166.toShort()
+        words[388*256+3]=1001.toShort()
+        assertNull(ThermalDecoder.reportedMaximum(words,256,392))
+        assertNull(ThermalDecoder.reportedMaximum(words,256,192))
+    }
     @Test fun sixteenBitGradientRemainsMonotonicAcrossByteBoundaries() {
         val input=intArrayOf(254,255,256,257,510,511,512)
         val image=ThermalDecoder.decode(input.map { it.toShort() }.toShortArray(),7,1,"Y16 ",true)
