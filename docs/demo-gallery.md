@@ -1,6 +1,6 @@
 # Quest Thermal in use
 
-Real headset captures from Pyotyr's Meta Quest 3 and 256×192 USB thermal module, recorded on 26 November 2026 with v0.8.2. Images are resized for the web; the thermal content and alignment have not been retouched.
+Real headset captures from Pyotyr's Meta Quest 3 and 256×192 USB thermal module, recorded on 26 November 2026 with v0.8.2. Images are cropped and resized to focus on the demonstration; the thermal content and alignment have not been retouched.
 
 [Download the APK](https://github.com/pyotyr/quest-thermal/releases/latest) · [Hardware and setup](../README.md#camera-compatibility)
 
