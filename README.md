@@ -1,6 +1,6 @@
-# Quest Thermal
+# Quest Thermal — Turn your Quest 3 into thermal goggles
 
-A head-following thermal overlay for **Meta Quest 3**, by **Pyotyr**.
+See warm electronics, explore temperature differences around the house, and blend thermal imagery into your normal view. **Quest Thermal** is a head-following thermal overlay for **Meta Quest 3**, by **Pyotyr**, with adjustable transparency and four-point alignment.
 
 **Requires a compatible HIK-based USB thermal camera/module connected to the headset.** The tested module has a USB-A plug, connected to the Quest through a USB-C OTG adapter.
 The Quest's built-in cameras do not capture thermal images.
@@ -8,6 +8,23 @@ The Quest's built-in cameras do not capture thermal images.
 [Download the APK](https://github.com/pyotyr/quest-thermal/releases/latest) · [Source and licence](LICENSE)
 
 **Camera module: about US$183** (C$260.32; November 2026). [Pricing details](#approximate-camera-cost-november-2026).
+
+![Warm routers beside a cooler window, shown as a transparent thermal overlay in Quest 3 passthrough](docs/images/demo/routers-window.jpg)
+
+*Warm routers stand out in red while cooler parts of the window appear blue. This is an actual headset screenshot from Pyotyr's setup.*
+
+## See it in use
+
+| Explore heat around the house | Wear it and align the view |
+| --- | --- |
+| ![Thermal overlay on kitchen appliances](docs/images/demo/kitchen-appliances.jpg) | ![Pyotyr wearing the thermal-equipped Quest in a mirror](docs/images/demo/mirror-closeup.jpg) |
+| **Kitchen appliances:** compare warmer objects with their surroundings. | **Mirror view:** the thermal image blends over ordinary colour passthrough. |
+| ![Inspecting a vent and nearby surfaces with the thermal overlay](docs/images/demo/vents.jpg) | ![Selecting reference points in the thermal image](docs/images/demo/alignment-thermal-points.jpg) |
+| **Vents and surfaces:** explore the scene's warmer and cooler regions. | **Four-point alignment:** match visible landmarks to position the overlay. |
+
+[View all eight screenshots, including normal passthrough and both alignment stages →](docs/demo-gallery.md)
+
+The captures show v0.8.2 on the tested 256×192 camera. Red/blue highlights adapt to the scene's distribution; they are not fixed temperature thresholds. Alignment remains approximate and varies with distance.
 
 ## Camera compatibility
 
@@ -47,6 +64,7 @@ Pyotyr used [this USB-A to USB-C adapter](https://www.amazon.ca/dp/B0B9N3QSL3) (
 - Offers white-hot/black-cold grayscale with adaptive red hot and blue cold highlights, plus other colour maps.
 - Controls grayscale, red, blue and overall transparency independently.
 - Shows optional min/max/centre markers and relative mean heat; hides controls for a clean view.
+- Shows the camera-reported maximum as a numeric-only Celsius label beside the red crosshair on the tested 256×392 USB stream.
 - Uses the clean 16-bit plane on the tested camera, avoiding the camera preview's burned-in Max label and crosshair.
 - Fades stale images and shows an animated **Camera calibrating or paused…** indicator when frames stop changing.
 - Appears in the tested camera's USB app chooser; choose **Always** if offered by Horizon OS.
@@ -55,11 +73,11 @@ Pyotyr used [this USB-A to USB-C adapter](https://www.amazon.ca/dp/B0B9N3QSL3) (
 
 1. Enable developer mode on the Quest and connect it to a computer with a USB data cable.
 2. Approve USB debugging in the headset.
-3. Download `Quest-Thermal-0.8.0.apk` from [Releases](https://github.com/pyotyr/quest-thermal/releases).
+3. Download `Quest-Thermal-0.8.2.apk` from [Releases](https://github.com/pyotyr/quest-thermal/releases).
 4. Sideload the APK using your usual installer or Android platform-tools:
 
    ```sh
-   adb install -r Quest-Thermal-0.8.0.apk
+   adb install -r Quest-Thermal-0.8.2.apk
    ```
 
 5. Open **Quest Thermal** from the headset's Unknown Sources apps. Allow the camera/USB permissions requested by Horizon OS.
@@ -111,7 +129,9 @@ The preset includes Pyotyr's saved alignment matrix. Re-align it for your own ca
 
 ## Measurement and calibration limits
 
-The clean preview currently shows relative heat, not validated absolute Celsius/Fahrenheit measurements. The camera's Max text is intentionally excluded. The pause indicator infers missing or repeated image frames; it does not positively identify a shutter/FFC event and can also indicate a USB or stream interruption.
+The clean preview and colour map show relative heat. On the tested 256×392 stream, the red maximum marker uses the camera's reported temperature and location, decoded separately from the image. Its numeric Celsius label was checked against the camera's own overlay in room-temperature and hand captures; this is a protocol check, not an independent calibration of measurement accuracy. Minimum, centre and per-pixel Celsius conversions remain unverified, so they do not show invented numeric temperatures. The camera preview's burned-in Max text is intentionally excluded.
+
+The pause indicator infers missing or repeated image frames; it does not positively identify a shutter/FFC event and can also indicate a USB or stream interruption.
 
 The clean sensor plane has less processing than HIKMICRO's preview, so image appearance can differ. Histogram amplification is limited to reduce noise in uniform surfaces.
 
@@ -125,7 +145,7 @@ Use JDK 17 or 21, Android SDK platform 34, and build-tools 35.0.0. Point `ANDROI
 
 On Windows, use `gradlew.bat`. Output: `app/build/outputs/apk/debug/app-debug.apk`.
 
-Version 0.8.0 passed 27 local tests and Android lint with zero errors. Coverage includes stacked sensor/annotated-preview separation, 16-bit gradients, pause/recovery and repeated frames, four-point fitting, drag/resize interactions, preset parity, and preservation of saved settings on upgrade. The public test frame is synthetic. Version 0.7's core viewer was also tried successfully on the physical Quest/camera setup; the new-install preset is covered locally. Hardware combinations beyond the tested setup remain unverified.
+Version 0.8.2 passed 32 local tests and Android lint with zero errors. Coverage includes stacked sensor/annotated-preview separation, 16-bit gradients, reported-maximum metadata and numeric formatting, marker rotation/alignment/toggles, pause/recovery and repeated frames, four-point fitting, drag/resize interactions, preset parity, and preservation of saved settings on upgrade. The public test frame is synthetic. Version 0.8.2 was installed and used on Pyotyr's physical Quest/camera setup for the gallery captures. Hardware combinations beyond the tested setup remain unverified.
 
 ## Credits and licence
 
