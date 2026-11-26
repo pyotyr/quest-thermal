@@ -4,6 +4,12 @@ Real headset captures from Pyotyr's Meta Quest 3 and 256×192 USB thermal module
 
 [Download the APK](https://github.com/pyotyr/quest-thermal/releases/latest) · [Hardware and setup](../README.md#camera-compatibility)
 
+## How the camera is mounted
+
+![Front view of the USB thermal camera attached above the Quest 3's front sensors](images/mount-front.jpg)
+
+The thermal module sits above the Quest's front sensors on a homemade plate made from popsicle sticks, hot glue and double-sided/gel tape. Placing its lens close to the Quest's passthrough cameras reduces parallax. The USB-A camera connects to the headset through a USB-C OTG adapter. See [the mounting notes and side view](../README.md#example-mounting).
+
 ## Warm electronics beside a cooler window
 
 ![Routers on a windowsill with thermal overlay](images/demo/routers-window.jpg)
@@ -46,12 +52,14 @@ Choose four well-spaced landmarks in the frozen thermal image. The numbered cyan
 
 The thermal image hides while you choose the corresponding points in passthrough. The saved fit can be adjusted for the camera's position; parallax means it will not perfectly match objects at every distance.
 
-## Vents and nearby surfaces
+## Floor vent beside the door
 
-![Looking toward a vent and adjacent surfaces with a curved thermal panel](images/demo/vents-cropped.jpg)
+![Thermal view of the floor vent at the left side of the doorway](images/demo/floor-vent-cropped.jpg)
 
-Explore temperature contrast while the curved panel follows your view.
+The floor vent is beside the door, on the left side of this view. This crop focuses on the vent and doorway rather than the surrounding room.
 
 ## Reading the images
 
 Red and blue mark the hot and cold tails of the current scene's distribution. They are not fixed Celsius bands. The red crosshair's number is the camera-reported maximum on the tested USB mode. Image alignment, temperature accuracy and reflections depend on the setup and scene; see [measurement and calibration limits](../README.md#measurement-and-calibration-limits).
+
+Warm highlights at the image corners may be influenced by the headset or camera mount; their cause has not been isolated. They should not be interpreted as vents or other room features.
