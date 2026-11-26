@@ -9,9 +9,9 @@ The Quest's built-in cameras do not capture thermal images.
 
 **Camera module: about US$183** (C$260.32; November 2026). [Pricing details](#approximate-camera-cost-november-2026).
 
-![Warm routers beside a cooler window, shown as a transparent thermal overlay in Quest 3 passthrough](docs/images/demo/routers-window.jpg)
+![Pyotyr wearing the thermal-equipped Quest 3, with the thermal overlay blended over the mirror view](docs/images/demo/mirror-closeup.jpg)
 
-*Warm routers stand out in red while cooler parts of the window appear blue. A floor vent is visible in front of the window too. This is an actual headset screenshot from Pyotyr's setup.*
+*See the setup in action: Pyotyr wearing the thermal-equipped Quest 3, with thermal contrast and the camera-reported maximum temperature overlaid on ordinary colour passthrough.*
 
 ## See it in use
 
@@ -20,10 +20,13 @@ The Quest's built-in cameras do not capture thermal images.
 | ![Thermal overlay on kitchen appliances](docs/images/demo/kitchen-appliances.jpg) | ![Floor vent beside the door shown in thermal passthrough](docs/images/demo/floor-vent-context.jpg) |
 | Compare warmer objects with their surroundings. | Inspect the warm vent in its doorway and floor context. |
 
-| Mirror view | Four-point alignment |
-| --- | --- |
-| ![Pyotyr wearing the thermal-equipped Quest in a mirror](docs/images/demo/mirror-closeup.jpg) | ![Selecting reference points in the thermal image](docs/images/demo/alignment-thermal-points-cropped.jpg) |
-| Blend the thermal image over ordinary colour passthrough. | Match visible landmarks to position the overlay. |
+### Warm electronics beside a cooler window
+
+![Warm routers beside a cooler window, shown as a transparent thermal overlay in Quest 3 passthrough](docs/images/demo/routers-window.jpg)
+
+Warm routers stand out in red while cooler parts of the window appear blue. A floor vent is visible in front of the window too.
+
+[See how four-point alignment works →](docs/demo-gallery.md#why-four-point-alignment-matters)
 
 [View the gallery, including the camera mount, normal passthrough and both alignment stages →](docs/demo-gallery.md)
 

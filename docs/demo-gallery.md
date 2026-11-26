@@ -4,6 +4,12 @@ Real headset captures from Pyotyr's Meta Quest 3 and 256×192 USB thermal module
 
 [Download the APK](https://github.com/pyotyr/quest-thermal/releases/latest) · [Hardware and setup](../README.md#camera-compatibility)
 
+## Wearing the thermal-equipped headset
+
+![Closer mirror view of Pyotyr wearing the thermal-equipped headset](images/demo/mirror-closeup.jpg)
+
+Pyotyr wearing the thermal-equipped Quest 3: the mirror view shows the physical setup, thermal contrast, and the camera-reported maximum temperature together with ordinary colour passthrough.
+
 ## How the camera is mounted
 
 ![USB thermal camera, homemade mount and cable attached to the Quest 3](images/mount-headset-cropped.jpg)
@@ -39,12 +45,6 @@ The thermal image is hidden during the passthrough stage of alignment, making it
 ![Misaligned thermal overlay with the thermal mirror displaced from the visible mirror](images/demo/mirror-overlay-cropped.jpg)
 
 Here the thermal mirror is visibly offset from the mirror in passthrough. This illustrates why the overlay needs four-point alignment: select four matching landmarks in the thermal and visible views to fit the image to the surroundings. This is a misalignment example, not a demonstration of a finished alignment. The fit remains approximate and depends on distance because the thermal and Quest cameras occupy different positions.
-
-## Wearing the thermal-equipped headset
-
-![Closer mirror view of Pyotyr wearing the thermal-equipped headset](images/demo/mirror-closeup.jpg)
-
-A closer mirror view shows the head-mounted setup in use, with thermal and visible imagery together.
 
 ## Four-point alignment: thermal landmarks
 
