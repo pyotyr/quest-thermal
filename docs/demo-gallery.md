@@ -22,11 +22,13 @@ Compare warmer objects around the kitchen with the ordinary colour view still vi
 
 The thermal image is hidden during the passthrough stage of alignment, making it possible to select real-world reference points.
 
-## Thermal overlay in the mirror
+## Why four-point alignment matters
 
-![Thermal overlay blended over the room and mirror](images/demo/mirror-overlay.jpg)
+![Misaligned thermal overlay with the thermal mirror displaced from the visible mirror](images/demo/mirror-overlay.jpg)
 
-The thermal panel overlays the same room after switching back from the passthrough alignment stage.
+Here the thermal mirror is visibly offset from the mirror in passthrough. This illustrates why the overlay needs four-point alignment: select four matching landmarks in the thermal and visible views to fit the image to the surroundings. This is a misalignment example, not a demonstration of a finished alignment. The fit remains approximate and depends on distance because the thermal and Quest cameras occupy different positions.
+
+## Wearing the thermal-equipped headset
 
 ![Closer mirror view of Pyotyr wearing the thermal-equipped headset](images/demo/mirror-closeup.jpg)
 
