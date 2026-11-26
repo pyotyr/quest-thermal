@@ -12,9 +12,9 @@ Pyotyr wearing the thermal-equipped Quest 3: the mirror view shows the physical 
 
 ## Your hand in thermal passthrough
 
-![Open hand in thermal passthrough, with a red wrist highlight and a 30.5°C maximum reading](images/demo/hand-thermal.jpg)
+![Open hand above the stairway in thermal passthrough, with a red wrist highlight and a 29.6°C maximum reading](images/demo/hand-stairway-wide.jpg)
 
-An open hand stands out in white-hot grayscale, with a warmer region near the wrist highlighted in red. The red crosshair shows the camera-reported maximum of 30.5°C in this scene.
+An open hand stands out in white-hot grayscale above the stairway, with a warmer region near the wrist highlighted in red. The wider view keeps the stairs and railing visible behind the overlay. The red crosshair shows the camera-reported maximum of 29.6°C in this scene.
 
 ## How the camera is mounted
 
