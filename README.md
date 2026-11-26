@@ -15,14 +15,16 @@ The Quest's built-in cameras do not capture thermal images.
 
 ## See it in use
 
-![Open hand above the stairway in thermal passthrough with a numeric temperature reading](docs/images/demo/hand-stairway-wide.jpg)
-
-*Your hand above the stairs in thermal passthrough: white-hot detail, an adaptive red highlight near the wrist, and the camera-reported maximum temperature.*
-
 | Kitchen appliances | Floor vent beside the door |
 | --- | --- |
 | ![Thermal overlay on kitchen appliances](docs/images/demo/kitchen-appliances.jpg) | ![Floor vent beside the door shown in thermal passthrough](docs/images/demo/floor-vent-context.jpg) |
 | Compare warmer objects with their surroundings. | Inspect the warm vent in its doorway and floor context. |
+
+### Close-range hand view
+
+![Open hand above the stairway in thermal passthrough with a numeric temperature reading](docs/images/demo/hand-stairway-wide.jpg)
+
+*A nearby hand shows thermal detail and a temperature readout, while also illustrating close-range parallax: the thermal and passthrough positions do not line up perfectly.*
 
 ### Warm electronics beside a cooler window
 

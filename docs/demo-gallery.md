@@ -10,12 +10,6 @@ Real headset captures from Pyotyr's Meta Quest 3 and 256×192 USB thermal module
 
 Pyotyr wearing the thermal-equipped Quest 3: the mirror view shows the physical setup, thermal contrast, and the camera-reported maximum temperature together with ordinary colour passthrough.
 
-## Your hand in thermal passthrough
-
-![Open hand above the stairway in thermal passthrough, with a red wrist highlight and a 29.6°C maximum reading](images/demo/hand-stairway-wide.jpg)
-
-An open hand stands out in white-hot grayscale above the stairway, with a warmer region near the wrist highlighted in red. The wider view keeps the stairs and railing visible behind the overlay. The red crosshair shows the camera-reported maximum of 29.6°C in this scene.
-
 ## How the camera is mounted
 
 ![USB thermal camera, homemade mount and cable attached to the Quest 3](images/mount-headset-cropped.jpg)
@@ -39,6 +33,12 @@ Compare warmer objects around the kitchen with the ordinary colour view still vi
 ![Thermal view of the floor vent at the left side of the doorway](images/demo/floor-vent-context.jpg)
 
 The floor vent is beside the door, on the left side of this view. The wider view shows its position relative to the doorway and surrounding floor, with the thermal overlay blended over passthrough.
+
+## Your hand in thermal passthrough
+
+![Open hand above the stairway in thermal passthrough, with a red wrist highlight and a 29.6°C maximum reading](images/demo/hand-stairway-wide.jpg)
+
+An open hand stands out in white-hot grayscale above the stairway, with a warmer region near the wrist highlighted in red. The wider view keeps the stairs and railing visible behind the overlay. At this close distance, parallax visibly separates the thermal hand from its passthrough position; alignment fitted to more distant surroundings will not match the nearby hand perfectly. The red crosshair shows the camera-reported maximum of 29.6°C in this scene.
 
 ## Normal passthrough in the mirror
 
