@@ -54,9 +54,9 @@ The thermal image hides while you choose the corresponding points in passthrough
 
 ## Floor vent beside the door
 
-![Thermal view of the floor vent at the left side of the doorway](images/demo/floor-vent-cropped.jpg)
+![Thermal view of the floor vent at the left side of the doorway](images/demo/floor-vent-context.jpg)
 
-The floor vent is beside the door, on the left side of this view. This crop focuses on the vent and doorway rather than the surrounding room.
+The floor vent is beside the door, on the left side of this view. The wider view shows its position relative to the doorway and surrounding floor, with the thermal overlay blended over passthrough.
 
 ## Reading the images
 
